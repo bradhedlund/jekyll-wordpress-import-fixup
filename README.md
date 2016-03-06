@@ -16,7 +16,7 @@ This script was tested with [Amazon S3 static website hosting](http://docs.aws.a
 
 This script uses the GNU version of sed.  If you're going to use this script on Mac OSX you'll need to install GNU sed using ```brew install gnu-sed --default-names``` (Close and reopen your terminal program after installation).  You'll know GNU sed is installed if this command works: ```sed --version```
 
-## What does this script do?
+## What does it do?
 + Makes an untouched backup of your files in the same directory with the ```.bak``` extension.
 + Converts HTML hyperlinks into proper markdown
 + Converts HTML entities into characters
@@ -31,13 +31,13 @@ This script uses the GNU version of sed.  If you're going to use this script on 
 + Converts simple Wordpress YouTube embeds into an iframe
 + Cleans up ```<div>``` ```<span>``` and other unnecessary html
 
-## What do this script NOT do?
+## What does it NOT do?
 + does nothing with table HTML
 + does nothing with code snippets
 + does nothing java scripts and ```<head>``` or ```<body>``` or other page structure HTML
 + and there's much more that it doesn't do -- please improve it!
 
-## How do I run the script?
+## Run the script
 1. **Important:** Make several backups of your ```_posts``` directory before doing anything. In fact, you might want to test the script in a test area first and see if it works for you before you run it in your Jekyll ```_posts``` directory.
 2. Place the script in your `_posts` directory where you've just imported your Wordpress posts.
 3. Make it executable ```chmod +x jwif.sh```
