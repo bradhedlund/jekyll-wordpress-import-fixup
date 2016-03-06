@@ -1,4 +1,4 @@
-# Jekyll Wordpress Import Fixup -- **jwif.sh**
+Jekyll Wordpress Import Fixup -- **jwif.sh**
 
 ## What is this script for?
 This is a shell script written for [Jekyll](http://jekyllrb.com) users that will fixup Wordpress posts into markdown after you've imported them into Jekyll using the [Jekyll Wordpress import tool](http://import.jekyllrb.com/docs/wordpress/).
@@ -16,7 +16,7 @@ This script was tested with [Amazon S3 static website hosting](http://docs.aws.a
 
 ***WARNING:*** Do not run this script twice on the same set of files.  Run it once.  If you find that you need to edit the script and run it again, copy a fresh set of original .md files back into the directory.
 
-This script uses the GNU version of sed.  If you're going to use this script on Mac OSX you'll need to install GNU sed using ```brew install gnu-sed --default-name``` (Close and reopen your terminal program after installation).  You'll know GNU sed is installed if this command works: ```sed --version```
+This script uses the GNU version of sed.  If you're going to use this script on Mac OSX you'll need to install GNU sed using ```brew install gnu-sed --default-names``` (Close and reopen your terminal program after installation).  You'll know GNU sed is installed if this command works: ```sed --version```
 
 ## What does this script do?
 + Makes an untouched backup of your files in the same directory with the ```.bak``` extension.
@@ -44,3 +44,4 @@ This script uses the GNU version of sed.  If you're going to use this script on 
 2. Place the script in your `_posts` directory where you've just imported your Wordpress posts.
 3. Make it executable ```chmod +x jwif.sh```
 4. Run the script ```./jwif.sh```
+
