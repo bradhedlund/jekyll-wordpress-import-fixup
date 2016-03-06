@@ -1,6 +1,4 @@
 # Jekyll Wordpress Import Fixup
-
-## What is this script for?
 This is a shell script written for [Jekyll](http://jekyllrb.com) users that will fixup Wordpress posts into markdown after you've imported them into Jekyll using the [Jekyll Wordpress import tool](http://import.jekyllrb.com/docs/wordpress/).
 
 After you've successfully imported your Wordpress site into Jekyll, you may notice that the content area of each post is still formatted in the same messy HTML created by your Wordpress editor, and not the beautiful markdown that you really want.  
