@@ -1,4 +1,4 @@
-Jekyll Wordpress Import Fixup -- **jwif.sh**
+# Jekyll Wordpress Import Fixup
 
 ## What is this script for?
 This is a shell script written for [Jekyll](http://jekyllrb.com) users that will fixup Wordpress posts into markdown after you've imported them into Jekyll using the [Jekyll Wordpress import tool](http://import.jekyllrb.com/docs/wordpress/).
