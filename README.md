@@ -8,7 +8,7 @@ With well over 100 lengthy posts, manually editing each post into markdown would
 
 This shell script using stream editor will edit hundreds or thousands of Jekyll imported Wordpress posts into proper markdown, in seconds.
 
-This script was tested with [Amazon S3 static website hosting](http://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html), but should work fine for [GitHub pages](https://pages.github.com) or any other static web server.
+This script was tested with [Amazon S3 static website hosting](http://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html), but should work fine for [GitHub pages](https://pages.github.com) too, or any other static web server.
 
 ***WARNING:*** This script is experimental and still under continued development.  Please, please, please, make several backups of your original posts before you attempt to use this script.
 
