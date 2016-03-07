@@ -10,7 +10,7 @@ This shell script using stream editor will edit hundreds or thousands of Jekyll 
 
 This script was tested with [Amazon S3 static website hosting](http://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html), but should work fine for [GitHub pages](https://pages.github.com) too, or any other static web server.
 
-***WARNING:*** This script is experimental and still under continued development.  Please, please, please, make several backups of your original posts before you attempt to use this script.
+***WARNING:*** This script is experimental.  Please, please, please, make several backups of your original posts before you attempt to use this script.
 
 ***WARNING:*** Do not run this script twice on the same set of files.  Run it once.  If you find that you need to edit the script and run it again, copy a fresh set of original .md files back into the directory.
 
@@ -41,4 +41,3 @@ This script uses the GNU version of sed.  If you're going to use this script on 
 2. Place the script in your `_posts` directory where you've just imported your Wordpress posts.
 3. Make it executable ```chmod +x jwif.sh```
 4. Run the script ```./jwif.sh```
-
