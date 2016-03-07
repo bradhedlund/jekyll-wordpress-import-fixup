@@ -26,16 +26,15 @@ This script uses the GNU version of sed.  If you're going to use this script on 
 + Converts headers and lists into proper markdown
 + Converts your Wordpress YouTube embeds into an iframe
 + Converts HTML emphasis like ```<strong>``` and ```<em>``` into markdown
-+ Insures HTML headers and horizontal rules have proper line spacing
-+ Insures bold and italic emphasis have proper placement
++ Makes sure headers and horizontal rules have proper line spacing
++ Makes sure bold and italic emphasis have proper placement
 + Converts simple Wordpress YouTube embeds into an iframe
 + Cleans up ```<div>``` ```<span>``` and other unnecessary html
 
 ## What does it NOT do?
 + does nothing with table HTML
 + does nothing with code snippets
-+ does nothing java scripts and ```<head>``` or ```<body>``` or other page structure HTML
-+ and there's much more that it doesn't do -- please improve it!
++ does nothing with java scripts or ```<head>``` or ```<body>``` or any other page structure HTML (it doesn't need to).
 
 ## Run the script
 1. **Important:** Make several backups of your ```_posts``` directory before doing anything. In fact, you might want to test the script in a test area first and see if it works for you before you run it in your Jekyll ```_posts``` directory.
