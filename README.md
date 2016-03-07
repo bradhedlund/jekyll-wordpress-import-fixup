@@ -3,8 +3,8 @@ This is a shell script written for [Jekyll](http://jekyllrb.com) users that will
 
 After you've successfully imported your Wordpress site into Jekyll, you may notice that the content area of each post is still formatted in the same messy HTML created by your Wordpress editor, and not the beautiful markdown that you really want.  
 
-You can still render and upload your site with the old messy HTML, but it may cause HTML rendering problems (as it did for me).
-With well over 100 lengthy posts, manually editing each Wordpress imported post into markdown would have taken me weeks and been a real bore.
+You can still render and upload your site with the old messy HTML, but it may cause HTML rendering problems (it did for me).
+With well over 100 lengthy posts, manually editing each post into markdown would have taken weeks and been a real bore.
 
 This shell script using stream editor will edit hundreds or thousands of Jekyll imported Wordpress posts into proper markdown, in seconds.
 
