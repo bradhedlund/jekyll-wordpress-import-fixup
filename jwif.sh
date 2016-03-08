@@ -5,7 +5,10 @@
 # Note: This script uses the inverted interrobang and doubledagger characters as handlers: ⸘ ‡
 # If your content uses these characters, find/replace them with an equally obscure character not found in your content or this script.
 # Suggestions for other handlers might be: § † ‱ ❡
-
+echo 'Jekyll Wordpress Import Fixup'
+echo '-----------------------------'
+echo 'Creating .bak backup of all .md files...'
+echo 'Replacing HTLM entities...'
 # Replace HTML entities with actual character and create original .bak backup files
 sed -r -i.bak '
 s/&#47;/\//g
@@ -20,14 +23,17 @@ s/&rdquo;/"/g
 
 sed -r -i.bak2 "s/&rsquo;/\'/g" *.md
 
+echo 'Placing hyperlink markers...'
 # Place a marker around hyperlink URLs. Protect original .bak files by calling bak2 from now on.
 sed -r -i.bak2 '
 s/href="[^"]*"/⸘-urlMarker1-⸘&⸘-urlMarker2-⸘/g
 ' *.md
 
+echo 'Spacing paragraphs...'
 # Make sure paragraphs are separated by a blank line. Insert a blank line below </p>.
 sed -i.bak2 '/<\/p>/G' *.md
 
+echo 'Removing whitepace inside emphasis...'
 # Remove whitepace between bold or emphasis and the text it surrounds
 sed -r -i.bak2 '
 s|<strong>[ ]*|<strong>|g
@@ -36,6 +42,7 @@ s|<em>[ ]*|<em>|g
 s|[ ]*</em>|</em>|g
 ' *.md
 
+echo 'Inserting whitepace outside emphasis...'
 # Insert whitespace before and after bold or emphasis
 sed -r -i.bak2 '
 s|(</strong>)([^ ])|\1 \2|g
@@ -44,6 +51,7 @@ s|(</em>)([^ ])|\1 \2|g
 s|([^ ])(<em>)|\1 \2|g
 ' *.md
 
+echo 'Replacing HTML lists and emphasis with markdown...'
 # Replace html emphasis and list items with markdown
 sed -r -i.bak2 '
 s/<li>/+ /g
@@ -57,6 +65,7 @@ s/<em>/_/g
 s/<\/em>/_/g
 ' *.md
 
+echo 'Cleaning up list, line break, and paragraph HTML...'
 # Clean up simple list, line break, and paragraph html
 sed -r -i.bak2 '
 s/<\/li>//g
@@ -69,17 +78,20 @@ s/<ul>//g
 s/<\/ul>//g
 ' *.md
 
+echo 'Placing a marker on image captions...'
 # mark image captions
 sed -r -i.bak2 '
 s|\[/caption\]|‡-captionMarker2-‡|g
 s|>([^>]*)‡-captionMarker2-‡|>‡-captionMarker1-‡\1‡-captionMarker2-‡|g
 ' *.md
 
+echo 'Cleaning up image captions...'
 # Cleanup wordpress image [caption]
 sed -r -i.bak2 '
 s|\[caption[^]]*\]||g
 ' *.md
 
+echo 'Placing handlers for images...'
 # Place a temporary handler ahead of src=" for img
 sed -r -i.bak2 '
 /<img / s/src="/‡&/g
@@ -90,23 +102,25 @@ sed -r -i.bak2 '
 s/‡src="/⸘-imgMarker1-⸘/g
 ' *.md
 
+echo 'Placing handlers and makers for hyperlinks... '
 # Place a temporary handler ahead of </a>
 sed -r -i.bak2 '
 s_</a>_‡&_g
 ' *.md
 
 # Place a marker around clickable content
-# We assume your oringal <a> html is minimal with just href and no other settings. Like this: <a href="http://coolsite.com">click here</a>
 sed -r -i.bak2 '
-s_⸘-urlMarker2-⸘>([^‡]*)‡</a>_⸘-urlMarker2-⸘‡-clickMarker1-‡\1‡-clickMarker2-‡_g
+s_⸘-urlMarker2-⸘[^>]*>([^‡]*)‡</a>_⸘-urlMarker2-⸘‡-clickMarker1-‡\1‡-clickMarker2-‡_g
 ' *.md
 
+echo 'Cleaning up hyperlink HTML...'
 # Cleanup <a href=" and "
 sed -r -i.bak2 '
-s/<a ⸘-urlMarker1-⸘href="/⸘-urlMarker1-⸘/g
+s/<a[^⸘]*⸘-urlMarker1-⸘href="/⸘-urlMarker1-⸘/g
 s/"⸘-urlMarker2-⸘/⸘-urlMarker2-⸘/g
 ' *.md
 
+echo 'Placing markers for image HTML...'
 # Place a marker around img src urls
 sed -r -i.bak2 '
 s/⸘-imgMarker1-⸘/&⸘-imgSrcMarker1-⸘/g
@@ -120,6 +134,7 @@ sed -r -i.bak2 '
 /⸘-imgMarker1-⸘/ s/alt="/⸘-altMarker1-⸘&/g
 ' *.md
 
+echo 'Cleaning up image HTML...'
 # Remove img width and height if it exists
 sed -r -i.bak2 '
 /⸘-imgSrcMarker1-⸘/ s/width="[0-9][0-9][0-9]?"//g
@@ -319,3 +334,7 @@ s/^[ \t]+|[ \t]+$//g
 sed -r -i.bak2 '
 s|/>$||g
 ' *.md
+
+echo 'Cleaning up working files.'
+rm *.bak2
+echo 'All finished!'
