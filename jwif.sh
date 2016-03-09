@@ -120,7 +120,7 @@ s/<a[^⸘]*⸘-urlMarker1-⸘href="/⸘-urlMarker1-⸘/g
 s/"⸘-urlMarker2-⸘/⸘-urlMarker2-⸘/g
 ' *.md
 
-echo 'Placing markers for image HTML...'
+echo 'Placing markers on image HTML...'
 # Place a marker around img src urls
 sed -r -i.bak2 '
 s/⸘-imgMarker1-⸘/&⸘-imgSrcMarker1-⸘/g
@@ -149,6 +149,7 @@ s/"⸘-altMarker2-⸘/⸘-altMarker2-⸘/g
 
 ## Reorder img markers.
 # Move Alt text ahead of the img src URL
+echo 'Reordering image HMTL...'
 sed -r -i.bak2 '
 s/(⸘-imgSrcMarker1-⸘[^⸘]*⸘-imgSrcMarker2-⸘)[^⸘]*(⸘-altMarker1-⸘[^⸘]*⸘-altMarker2-⸘)/\2\1/g
 ' *.md
@@ -158,6 +159,7 @@ sed -r -i.bak2 '
 s/(⸘-altMarker1-⸘[^⸘]*⸘-altMarker2-⸘)[^⸘]*(⸘-imgMarker1-⸘)/\2\1/g
 ' *.md
 
+echo 'More cleanup of image HTML...'
 # Clean up <img to imgMarker1
 sed -r -i.bak2 '
 s/<img[^⸘]*⸘-imgMarker1-⸘/⸘-imgMarker1-⸘/g
@@ -199,17 +201,20 @@ sed -r -i.bak2 '
 s/⸘-imgSrcMarker2-⸘[^‡]*‡-captionMarker1/⸘-imgSrcMarker2-⸘\n‡-captionMarker1/g
 ' *.md
 
+echo 'Ordering hyperlinks and images before their URL target...'
 # Move clickable text or image before its url target
 sed -r -i.bak2 '
 s/(⸘-urlMarker1-⸘[^⸘]*⸘-urlMarker2-⸘)[^‡]*(‡-clickMarker1-‡[^‡]*‡-clickMarker2-‡)/\2\1/g
 ' *.md
 
+echo 'Adding empty line above and below Headers...'
 # Fixup headers
 # Make sure there's an empty line above the header. Append a blank line above header html.
 sed -r -i.bak2 '
 /<[h,H][1-6]>/{x;p;x;}
 ' *.md
 
+echo 'Converting HTML headers to markdown...'
 # Replace header html with markdown
 sed -r -i.bak2 '
 s/<[h,H]1>/# /g
@@ -225,6 +230,7 @@ sed -r -i.bak2 '
 s/<\/[H][1-6]>//ig
 ' *.md
 
+echo 'Converting blockquote to markdown...'
 # Find a range of text encapsulated by <blockquote> and convert it to markdown by preceding each line with >
 sed -r -i.bak2 '
 /<blockquote>/,/<\/blockquote>/ s/^./> &/g
@@ -239,16 +245,19 @@ s/<blockquote>//g
 s/<\/blockquote>//g
 ' *.md
 
+echo 'Adding empty line above and below horizontal rules...'
 # Make sure there's a blank line above and below horizontal rule html
 sed -r -i.bak2 '
 /<hr[ ]?[\/]?>/{x;p;x;G;}
 ' *.md
 
+echo 'Converting horizontal rules to markdown...'
 # Replace horizontal rule html with markdown
 sed -r -i.bak2 '
 s/<hr[ ]?[\/]?>/---/g
 ' *.md
 
+echo 'Cleaning up div, span, and other HTML...'
 # Find and remove <div> html
 sed -r -i.bak2 '
 s/<div [^>]*>//g
@@ -275,20 +284,23 @@ s/<\/address>//g
 # We're assuming all YouTube identifiers are exactly 11 characters long.
 # You can adjust the width and height settings if necessary, or just remove them.
 
+echo 'Removing Wordpress shortcode for YouTube...'
 # Match and remove Wordpress short code if it exists
 sed -r -i.bak2 '
 s/\[ youtube (http[s]?\:\/\/[w]{0,3}[\.]?youtube\.com\/watch\?v=[0-9a-zA-Z]{11}) ]/\1/g
 s/\[ youtube (http[s]?\:\/\/youtu\.be\/[0-9a-zA-Z]{11}) ]/\1/g
 ' *.md
 
+echo 'Placing YouTube embeds into iframe...'
 # Match youtu.be and www.youtube.com/watch?v= -- and wrap with iframe if the YouTube url begins a line.
 sed -r -i.bak2 '
 /^http[s]?\:\/\/youtu\.be/ s/http[s]?\:\/\/youtu\.be\/[0-9a-zA-Z]{11}/<iframe title="YouTube video player" width="560" height="315" src="&?rel=0" frameborder="0" allowfullscreen><\/iframe>/g
 /^http[s]?\:\/\/[w]{0,3}[\.]?youtube\.com\/watch\?v=/ s/http[s]?\:\/\/[w]{0,3}[\.]?youtube\.com\/watch\?v=[0-9a-zA-Z]{11}/<iframe title="YouTube video player" width="560" height="315" src="&?rel=0" frameborder="0" allowfullscreen><\/iframe>/g
 ' *.md
 
-# Final markdown formatting.  Replace the makers and handlers with markdown.
 
+# Final markdown formatting.  Replace the makers and handlers with markdown.
+echo 'Final markdown formatting...'
 # Replace clickmarkers with [] to surround the clickable content
 sed -r -i.bak2 '
 s/‡-clickMarker1-‡/\[/g
@@ -324,7 +336,7 @@ s/‡-captionMarker[1-2]-‡/*/g
 ' *.md
 
 # Final cleanup
-
+echo 'Final cleanup...'
 # Cleanup whitespace at the beginning or end of a line.
 sed -r -i.bak2 '
 s/^[ \t]+|[ \t]+$//g
