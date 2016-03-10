@@ -8,20 +8,27 @@
 echo 'Jekyll Wordpress Import Fixup'
 echo '-----------------------------'
 echo 'Creating .bak backup of all .md files...'
+
+sed -i.bak '$a∆∇∆∇' *.md
+sed -i.bak2 '1i∩∪∩∪' *.md
+sed -i.bak2 '2d' *.md
+sed -i.bak2 '/∩∪∩∪/,/^---/ s/^---/∅∅∅∅/' *.md
+
 echo 'Replacing HTLM entities...'
-# Replace HTML entities with actual character and create original .bak backup files
-sed -r -i.bak '
-s/&#47;/\//g
-s/%2F/\//g
-s/&nbsp;/ /g
-s/&mdash;/--/g
-s/&ndash;/--/g
-s/&amp;/\&/g
-s/&ldquo;/"/g
-s/&rdquo;/"/g
+
+sed -r -i.bak2 '
+/∅∅∅∅/,/∆∇∆∇/ s/&#47;/\//g
+/∅∅∅∅/,/∆∇∆∇/ s/%2F/\//g
+/∅∅∅∅/,/∆∇∆∇/ s/&nbsp;/ /g
+/∅∅∅∅/,/∆∇∆∇/ s/&mdash;/--/g
+/∅∅∅∅/,/∆∇∆∇/ s/&hellip;/…/g
+/∅∅∅∅/,/∆∇∆∇/ s/&ndash;/--/g
+/∅∅∅∅/,/∆∇∆∇/ s/&amp;/\&/g
+/∅∅∅∅/,/∆∇∆∇/ s/&ldquo;/"/g
+/∅∅∅∅/,/∆∇∆∇/ s/&rdquo;/"/g
 ' *.md
 
-sed -r -i.bak2 "s/&rsquo;/\'/g" *.md
+sed -r -i.bak2 "/∅∅∅∅/,/∆∇∆∇/ s/&rsquo;/\'/g" *.md
 
 echo 'Placing hyperlink markers...'
 # Place a marker around hyperlink URLs. Protect original .bak files by calling bak2 from now on.
@@ -337,10 +344,11 @@ s/‡-captionMarker[1-2]-‡/*/g
 
 # Final cleanup
 echo 'Final cleanup...'
+
 # Cleanup whitespace at the beginning or end of a line.
-sed -r -i.bak2 '
-s/^[ \t]+|[ \t]+$//g
-' *.md
+#sed -r -i.bak2 '
+#s/^[ \t]+|[ \t]+$//g
+#' *.md
 
 # Remove any leftover />
 sed -r -i.bak2 '
