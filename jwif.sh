@@ -2,7 +2,7 @@
 
 # This script is specifically designed to clean up and reformat html to markdown for Wordpress posts imported into Jekyll using the Jekyll Wordpress Import tool.
 # This script uses GNU sed. If you're using Mac OSX see this: http://stackoverflow.com/questions/30003570/how-to-use-gnu-sed-on-mac-os-x
-# Note: This script uses the inverted interrobang and doubledagger characters as handlers: ⸘ ‡
+# Note: This script uses the inverted interrobang and doubledagger characters as handlers: ⸘ ‡ ∆ ∇ ∩ ∪ ∅
 # If your content uses these characters, find/replace them with an equally obscure character not found in your content or this script.
 # Suggestions for other handlers might be: § † ‱ ❡
 echo 'Jekyll Wordpress Import Fixup'
