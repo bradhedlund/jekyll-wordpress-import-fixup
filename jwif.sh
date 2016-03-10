@@ -370,6 +370,12 @@ s/∩∪∩∪/---/
 s/∅∅∅∅/---/
 $d' *.md
 
+# Cleanup any leftover markers
+sed -r -i.bak2 '
+s/⸘//g
+s/‡//g
+' *.md
+
 echo 'Cleaning up working files.'
 rm *.bak2
 echo 'All finished!'
