@@ -87,6 +87,25 @@ s/<ul>//g
 s/<\/ul>//g
 ' *.md
 
+echo 'Cleaning up div, span, and other HTML...'
+# Find and remove <div> html
+sed -r -i.bak2 '
+s/<div [^>]*>//g
+s/<\/div>//g
+' *.md
+
+# Find and remove <span> html
+sed -r -i.bak2 '
+s/<span [^>]*>//g
+s/<\/span>//g
+' *.md
+
+# Find and remove <address> html
+sed -r -i.bak2 '
+s/<address>//g
+s/<\/address>//g
+' *.md
+
 echo 'Placing a marker on image captions...'
 # mark image captions
 sed -r -i.bak2 '
@@ -272,25 +291,6 @@ sed -r -i.bak2 '
 s/<hr[ ]?[\/]?>/---/g
 ' *.md
 
-echo 'Cleaning up div, span, and other HTML...'
-# Find and remove <div> html
-sed -r -i.bak2 '
-s/<div [^>]*>//g
-s/<\/div>//g
-' *.md
-
-# Find and remove <span> html
-sed -r -i.bak2 '
-s/<span [^>]*>//g
-s/<\/span>//g
-' *.md
-
-# Find and remove <address> html
-sed -r -i.bak2 '
-s/<address>//g
-s/<\/address>//g
-' *.md
-
 # YouTube embeds:
 # When using Wordpress you embed YouTube videos by placing the YouTube URL on a line by itself (or using Wordpress shortcode) and Wordpress will embed automatically at page load time.
 # Lets find YouTube links and put them in an iframe for embedding, which IMO, still works better than markdown embeds.
@@ -378,4 +378,12 @@ s/‡//g
 
 echo 'Cleaning up working files.'
 rm *.bak2
+
+echo 'Ziping and archiving backup files...'
+tar -czf jwif.backup.tar.gz *.bak
+
+echo 'Moving backup files to your home directory...'
+mv jwif.backup.tar.gz ~
+rm *.bak
+
 echo 'All finished!'
