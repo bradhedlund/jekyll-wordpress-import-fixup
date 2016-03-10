@@ -9,6 +9,8 @@ echo 'Jekyll Wordpress Import Fixup'
 echo '-----------------------------'
 echo 'Creating .bak backup of all .md files...'
 
+# The following statements place unique markers at the 1st and last line and the beginning of the content area
+# Theses markers will be used to make sure we can effect only the content area when we want to, leaving the Jekyll header section alone.
 sed -i.bak '$a∆∇∆∇' *.md
 sed -i.bak2 '1i∩∪∩∪' *.md
 sed -i.bak2 '2d' *.md
@@ -237,19 +239,25 @@ sed -r -i.bak2 '
 s/<\/[H][1-6]>//ig
 ' *.md
 
-echo 'Converting blockquote to markdown...'
-# Find a range of text encapsulated by <blockquote> and convert it to markdown by preceding each line with >
+# Mark blockquotes in the content area
 sed -r -i.bak2 '
-/<blockquote>/,/<\/blockquote>/ s/^./> &/g
+/∅∅∅∅/,/∆∇∆∇/ s_<blockquote>_∆∆∆∆_g
+/∅∅∅∅/,/∆∇∆∇/ s_</blockquote>_∇∇∇∇_g
 ' *.md
 
 # Insert a blank line below </blockquote>.
-sed -i.bak2 '/<\/blockquote>/G' *.md
+sed -i.bak2 '/∇∇∇∇/G' *.md
+
+echo 'Converting blockquote to markdown...'
+# Find a range of text encapsulated by <blockquote> and convert it to markdown by preceding each line with >
+sed -r -i.bak2 '
+/∆∆∆∆/,/∇∇∇∇/ s/^./> &/g
+' *.md
 
 # Now remove the <blockquote> html
 sed -r -i.bak2 '
-s/<blockquote>//g
-s/<\/blockquote>//g
+s/∆∆∆∆//g
+s/∇∇∇∇//g
 ' *.md
 
 echo 'Adding empty line above and below horizontal rules...'
@@ -354,6 +362,13 @@ echo 'Final cleanup...'
 sed -r -i.bak2 '
 s|/>$||g
 ' *.md
+
+# Remove the content area markers
+echo 'Cleaning up area markers...'
+sed -r -i.bak2 '
+s/∩∪∩∪/---/
+s/∅∅∅∅/---/
+$d' *.md
 
 echo 'Cleaning up working files.'
 rm *.bak2
