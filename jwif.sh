@@ -394,10 +394,10 @@ s/‡//g
 echo 'Cleaning up working files.'
 rm *.bak2
 
-echo 'FIXME----Ziping and archiving backup files...'
+echo 'Ziping and archiving backup files...'
 tar -czf jwif.backup.tar.gz *.bak
 
-echo 'FIXME----Moving backup files to your home directory...'
+echo 'Moving backup files to your home directory...'
 mv jwif.backup.tar.gz ~
 rm *.bak
 
