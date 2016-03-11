@@ -113,7 +113,7 @@ s|\[/caption\]|‡-captionMarker2-‡|g
 s|>([^>]*)‡-captionMarker2-‡|>‡-captionMarker1-‡\1‡-captionMarker2-‡|g
 ' *.md
 
-echo 'Cleaning up image captions...'
+echo 'Cleaning up wordpress image caption markers...'
 # Cleanup wordpress image [caption]
 sed -r -i.bak2 '
 s|\[caption[^]]*\]||g
