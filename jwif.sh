@@ -59,6 +59,17 @@ s|([^ ])(<strong>)|\1 \2|g
 s|(</em>)([^ ])|\1 \2|g
 s|([^ ])(<em>)|\1 \2|g
 ' *.md
+# Removing whitespace adjacent to . and , and other empahsis
+sed -r -i.bak2 '
+s|</strong> \.|</strong>|g
+s|</strong> \,|</strong>|g
+s|</em> \.|</strong>|g
+s|</em> \,|</strong>|g
+s|<strong> <em>|<strong><em>|g
+s|<em> <strong>|<em><strong>|g
+s|</strong> </em>|</strong></em>|g
+s|</em> </strong>|</em></strong>|g
+' *.md
 
 echo 'Replacing HTML lists and emphasis with markdown...'
 # Replace html emphasis and list items with markdown
@@ -72,6 +83,10 @@ s/<strong>/**/g
 s/<\/strong>/**/g
 s/<em>/_/g
 s/<\/em>/_/g
+s|<i>|*|g
+s|</i>|*|g
+s|<b>|**|g
+s|</b>|**|g
 ' *.md
 
 echo 'Cleaning up list, line break, and paragraph HTML...'
@@ -90,7 +105,7 @@ s/<\/ul>//g
 echo 'Cleaning up div, span, and other HTML...'
 # Find and remove <div> html
 sed -r -i.bak2 '
-s/<div [^>]*>//g
+s/<div[^>]*>//g
 s/<\/div>//g
 ' *.md
 
@@ -379,10 +394,10 @@ s/‡//g
 echo 'Cleaning up working files.'
 rm *.bak2
 
-echo 'Ziping and archiving backup files...'
+echo 'FIXME----Ziping and archiving backup files...'
 tar -czf jwif.backup.tar.gz *.bak
 
-echo 'Moving backup files to your home directory...'
+echo 'FIXME----Moving backup files to your home directory...'
 mv jwif.backup.tar.gz ~
 rm *.bak
 
