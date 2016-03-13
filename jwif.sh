@@ -324,8 +324,8 @@ s/\[ youtube (http[s]?\:\/\/youtu\.be\/[0-9a-zA-Z]{11}) ]/\1/g
 echo 'Placing YouTube embeds into iframe...'
 # Match youtu.be and www.youtube.com/watch?v= -- and wrap with iframe if the YouTube url begins a line.
 sed -r -i.bak2 '
-/^http[s]?\:\/\/youtu\.be/ s/http[s]?\:\/\/youtu\.be\/[0-9a-zA-Z]{11}/<iframe title="YouTube video player" width="560" height="315" src="&?rel=0" frameborder="0" allowfullscreen><\/iframe>/g
-/^http[s]?\:\/\/[w]{0,3}[\.]?youtube\.com\/watch\?v=/ s/http[s]?\:\/\/[w]{0,3}[\.]?youtube\.com\/watch\?v=[0-9a-zA-Z]{11}/<iframe title="YouTube video player" width="560" height="315" src="&?rel=0" frameborder="0" allowfullscreen><\/iframe>/g
+/^http[s]?\:\/\/youtu\.be/ s|http[s]?\://youtu\.be/([0-9a-zA-Z]{11})|<iframe title="YouTube video player" width="560" height="315" src="http://www.youtube.com/embed/\1\?rel=0" frameborder="0" allowfullscreen></iframe>|g
+/^http[s]?\:\/\/[w]{0,3}[\.]?youtube\.com\/watch\?v=/ s|http[s]?\://[w]{0,3}[\.]?youtube\.com/watch\?v=([0-9a-zA-Z,_,-]{11})|<iframe title="YouTube video player" width="560" height="315" src="http://www.youtube.com/embed/\1\?rel=0" frameborder="0" allowfullscreen></iframe>|g
 ' *.md
 
 
@@ -394,11 +394,16 @@ s/‡//g
 echo 'Cleaning up working files.'
 rm *.bak2
 
-echo 'Ziping and archiving backup files...'
-tar -czf jwif.backup.tar.gz *.bak
+# Backup the original files into a timestamped archive
+d=`date +%y%m%d%H%M%S`
+echo 'Zipping and archiving backup files...'
+tar -czf jwif.backup-$d.tar.gz *.bak
 
+# Move the archive to the users home directory
 echo 'Moving backup files to your home directory...'
-mv jwif.backup.tar.gz ~
+mv jwif.backup-$d.tar.gz ~
+
+# Cleanup the _posts directory
 rm *.bak
 
 echo 'All finished!'
